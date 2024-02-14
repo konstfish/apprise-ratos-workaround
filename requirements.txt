@@ -4,4 +4,3 @@ flask_sqlalchemy
 requests
 gunicorn
 python-dotenv
-sqlite3
