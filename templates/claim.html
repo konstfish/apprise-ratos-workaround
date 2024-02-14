@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Print</title>
+
+    <script src="https://kit.fontawesome.com/f0ee9c51e4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://components.konst.fish/main.css">
+</head>
+<body>
+  {{ print }}
+  <div class="panel panel-adjust">
+    <h2>Claim print {{ print.gcode_name }}</h2>
+    <input type="text" id="ownerInp" placeholder="Your Name">
+    <button onclick="submit()">Submit</button>
+  </div>
+
+  <script>
+    function submit() {
+      const owner = document.getElementById('ownerInp').value;
+      // get current url parameters
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const key = urlParams.get('key')
+      const printId = urlParams.get('printId')
+
+      let url = `/api/claim?key=${key}&printId={{print.printId}}`;
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ owner: owner })
+      })
+
+      console.log('submitted', owner, key, printId)
+
+      // window.location.href = `/?key=${key}`;
+    }
+
+    // check if printid is valid
+    // if not, redirect to home
+    // if valid, show claim form
+
+  </script>
+</body>
+</html>
+
+<!--
+{'title': 'Tidy Up, 20:00', 
+'icon': 'ic_broom', 
+'entry_timestamp': '2022-05-24T16:57:19.721Z', 
+'entry_type': 1}
+-->

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Print</title>
+
+    <script src="https://kit.fontawesome.com/f0ee9c51e4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://components.konst.fish/main.css">
+
+    <style>
+      img{
+        height: 100px;
+        border-radius: 8px;
+      }
+
+      .panel {
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .meta{
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+</head>
+<body>
+  <div class="prints">
+    {% for print in prints %}
+    <div class="panel panel-adjust">
+      <div class="meta">
+        <h4>Print: {{ print.gcode_name }}</h2>
+        <span>Owner: {{ print.owner }}</span>
+        <span>Time Started: {{ print.print_time }}</span>
+        <span>Last Status: {{ print.event_name }}</span>
+      </div>
+      <img src="data:image/png;base64,{{ print.picture }}" alt="latest image">
+    </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
