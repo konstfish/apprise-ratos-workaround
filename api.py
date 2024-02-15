@@ -34,7 +34,7 @@ def api_printer():
     message = prepare_message(inp, printId)
     print(message)
 
-    # send_message(message)
+    send_message(message)
 
     return {200: "success"}
 
