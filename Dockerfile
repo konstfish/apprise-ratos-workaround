@@ -5,4 +5,5 @@ WORKDIR /opt
 RUN mkdir -p data
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["gunicorn", "-c", "config.py", "api:app"]
+ENTRYPOINT [ "python", "-u", "api.py" ]
+#ENTRYPOINT ["gunicorn", "-c", "config.py", "api:app"]
