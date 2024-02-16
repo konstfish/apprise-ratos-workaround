@@ -7,6 +7,8 @@ from middleware import authorize_request
 from slack import prepare_message, send_message
 from PIL import Image
 
+from io import BytesIO
+
 import random
 import os
 
@@ -35,7 +37,7 @@ def api_printer():
     message = prepare_message(inp, printId)
     print(message)
 
-    send_message(message)
+    # send_message(message)
 
     return {200: "success"}
 
@@ -78,10 +80,14 @@ def image():
         return "Print not found", 404
     
     image_binary = base64.b64decode(printO["picture"])
-    img = Image.open(image_binary)
+    img = Image.open(BytesIO(image_binary))
     flip_img = img.transpose(Image.FLIP_TOP_BOTTOM)
 
-    response = Response(flip_img, mimetype='image/jpeg')
+    buffer = BytesIO()
+    flip_img.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    response = Response(buffer, mimetype='image/png')
     
     return response
 
