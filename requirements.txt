@@ -4,3 +4,4 @@ flask_sqlalchemy
 requests
 gunicorn
 python-dotenv
+Pillow

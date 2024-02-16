@@ -5,6 +5,7 @@ import json
 import base64
 from middleware import authorize_request
 from slack import prepare_message, send_message
+from PIL import Image
 
 import random
 import os
@@ -77,7 +78,10 @@ def image():
         return "Print not found", 404
     
     image_binary = base64.b64decode(printO["picture"])
-    response = Response(image_binary, mimetype='image/jpeg')
+    img = Image.open(image_binary)
+    flip_img = img.transpose(Image.FLIP_TOP_BOTTOM)
+
+    response = Response(flip_img, mimetype='image/jpeg')
     
     return response
 
